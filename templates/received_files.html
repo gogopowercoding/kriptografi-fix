@@ -1,0 +1,21 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<h3>File Diterima</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr><th>Dari</th><th>Nama File</th><th>Tanggal</th><th>Unduh / Dekripsi</th></tr>
+    </thead>
+    <tbody>
+        {% for f in files %}
+        <tr>
+            <td>{{ f.sender_name }}</td>
+            <td>{{ f.filename }}</td>
+            <td>{{ f.date_sent }}</td>
+            <td>
+                <a href="{{ url_for('file_bp.download_file', file_id=f.id) }}" class="btn btn-success btn-sm">Unduh</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

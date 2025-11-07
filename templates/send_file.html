@@ -1,0 +1,15 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<h3>Kirim File Terenkripsi (Twofish)</h3>
+<form action="{{ url_for('file_bp.send_file') }}" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label>Penerima (ID)</label>
+        <input type="text" name="receiver_id" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Pilih File</label>
+        <input type="file" name="file" class="form-control" required>
+    </div>
+    <button class="btn btn-primary">Kirim</button>
+</form>
+{% endblock %}

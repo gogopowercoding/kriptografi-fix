@@ -1,0 +1,19 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<h3>Kirim Pesan Terenkripsi (Caesar + FSR)</h3>
+<form action="{{ url_for('message_bp.send_message') }}" method="POST">
+    <div class="mb-3">
+        <label>Penerima (ID)</label>
+        <input type="text" class="form-control" name="receiver_id" required>
+    </div>
+    <div class="mb-3">
+        <label>Judul</label>
+        <input type="text" class="form-control" name="title" required>
+    </div>
+    <div class="mb-3">
+        <label>Pesan</label>
+        <textarea name="message" rows="5" class="form-control" required></textarea>
+    </div>
+    <button class="btn btn-primary">Kirim</button>
+</form>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<h3>{{ message.title }}</h3>
+<p><b>Dari:</b> {{ message.sender_name }}</p>
+<p><b>Dikirim pada:</b> {{ message.date_sent }}</p>
+<hr>
+<p>{{ decrypted_message }}</p>
+<a href="{{ url_for('message_bp.inbox') }}" class="btn btn-outline-secondary">Kembali</a>
+{% endblock %}

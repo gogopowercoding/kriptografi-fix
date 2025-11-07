@@ -1,0 +1,24 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<h3>Kotak Masuk</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Dari</th>
+            <th>Judul</th>
+            <th>Tanggal</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for msg in messages %}
+        <tr>
+            <td>{{ msg.sender_name }}</td>
+            <td>{{ msg.title }}</td>
+            <td>{{ msg.date_sent }}</td>
+            <td><a href="{{ url_for('message_bp.view_message', message_id=msg.id) }}" class="btn btn-sm btn-secondary">Buka</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h3>Gambar Diterima (Steganografi)</h3>
+    
+    {% if images|length == 0 %}
+    <div class="alert alert-info">
+        Belum ada gambar yang diterima.
+    </div>
+    {% else %}
+    <div class="row">
+    {% for img in images %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card shadow-sm h-100">
+          {% set image_url = '/' + img.image_path if not img.image_path.startswith('/') else img.image_path %}
+          <img src="{{ image_url }}" class="card-img-top" alt="Stego Image" style="max-height: 300px; object-fit: cover;" onerror="this.src='/static/uploads/placeholder.jpg'; this.onerror=null;">
+          
+          <div class="card-body">
+            <h6 class="card-title">
+              <i class="bi bi-person-circle"></i> Dari: <strong>{{ img.sender_name }}</strong>
+            </h6>
+            <p class="small text-muted">
+              <i class="bi bi-calendar"></i> {{ img.date_sent }}
+            </p>
+            <hr>
+            <div class="card-text">
+              <strong><i class="bi bi-lock-fill"></i> Pesan Rahasia:</strong>
+              <div class="p-2 mt-2 bg-light rounded">
+                {% if img.message.startswith('[Error') %}
+                <span class="text-danger">{{ img.message }}</span>
+                {% else %}
+                <span class="text-success">{{ img.message }}</span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
