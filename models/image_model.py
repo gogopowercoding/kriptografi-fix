@@ -1,14 +1,14 @@
-import os
+# models/image_model.py
 from config import mysql
 
 class ImageModel:
     @staticmethod
-    def save_image(sender_id, receiver_id, image_path, hidden_message_encrypted):
+    def save_image(sender_id, receiver_id, image_path):
         cur = mysql.connection.cursor()
         cur.execute("""
-            INSERT INTO images (sender_id, receiver_id, image_path, hidden_message)
-            VALUES (%s, %s, %s, %s)
-        """, (sender_id, receiver_id, image_path, hidden_message_encrypted))
+            INSERT INTO images (sender_id, receiver_id, image_path)
+            VALUES (%s, %s, %s)
+        """, (sender_id, receiver_id, image_path))
         mysql.connection.commit()
         cur.close()
 

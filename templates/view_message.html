@@ -1,9 +1,43 @@
 {% extends "dashboard.html" %}
 {% block content %}
+
 <h3>{{ message.title }}</h3>
 <p><b>Dari:</b> {{ message.sender_name }}</p>
 <p><b>Dikirim pada:</b> {{ message.date_sent }}</p>
 <hr>
-<p>{{ decrypted_message }}</p>
-<a href="{{ url_for('message_bp.inbox') }}" class="btn btn-outline-secondary">Kembali</a>
+
+{% if decrypted_message %}
+    <!-- Pesan sudah berhasil didekripsi -->
+    <div class="alert alert-success">
+        <b>Pesan berhasil didekripsi</b>
+    </div>
+    <p>{{ decrypted_message }}</p>
+
+    <a href="{{ url_for('message_bp.inbox') }}" class="btn btn-outline-secondary">Kembali</a>
+
+{% else %}
+    <!-- Form meminta kunci -->
+    <div class="alert alert-warning">
+        Masukkan dua kunci untuk membuka pesan.
+    </div>
+
+    <form action="{{ url_for('message_bp.view_message', message_id=message.id) }}" method="POST">
+
+        <div class="mb-3">
+            <label class="form-label">Kunci Caesar</label>
+            <input type="number" class="form-control" name="caesar_key" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Kunci DES (8 karakter)</label>
+            <input type="text" class="form-control" name="des_key" minlength="8" maxlength="8" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Buka Pesan</button>
+
+    </form>
+
+    <a href="{{ url_for('message_bp.inbox') }}" class="btn btn-outline-secondary mt-2">Kembali</a>
+{% endif %}
+
 {% endblock %}

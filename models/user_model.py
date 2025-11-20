@@ -19,7 +19,6 @@ class UserModel:
         cur.close()
         return user
 
-    # di models/user_model.py (tambahkan)
     @staticmethod
     def get_all_users_except(user_id):
         cur = mysql.connection.cursor()

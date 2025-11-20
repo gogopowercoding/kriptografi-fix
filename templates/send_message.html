@@ -1,19 +1,38 @@
 {% extends "dashboard.html" %}
 {% block content %}
-<h3>Kirim Pesan Terenkripsi (Caesar + FSR)</h3>
+<h3>Kirim Pesan Terenkripsi (Super–Encryption)</h3>
+
 <form action="{{ url_for('message_bp.send_message') }}" method="POST">
+
     <div class="mb-3">
-        <label>Penerima (ID)</label>
-        <input type="text" class="form-control" name="receiver_id" required>
+        <label>Pilih Penerima</label>
+        <select name="receiver_id" class="form-control" required>
+            {% for u in users %}
+                <option value="{{ u.id }}">{{ u.nama }} (ID: {{ u.id }})</option>
+            {% endfor %}
+        </select>
     </div>
+
     <div class="mb-3">
-        <label>Judul</label>
-        <input type="text" class="form-control" name="title" required>
+        <label>Judul Pesan</label>
+        <input type="text" name="title" class="form-control" required>
     </div>
+
     <div class="mb-3">
-        <label>Pesan</label>
+        <label>Kunci Caesar (angka)</label>
+        <input type="text" name="caesar_key" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Kunci DES (8 karakter)</label>
+        <input type="text" name="des_key" maxlength="8" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Isi Pesan</label>
         <textarea name="message" rows="5" class="form-control" required></textarea>
     </div>
+
     <button class="btn btn-primary">Kirim</button>
 </form>
 {% endblock %}
